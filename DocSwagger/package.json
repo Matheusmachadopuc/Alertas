@@ -4,7 +4,7 @@
   "description": "",
   "main": "documentacao.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node documentacao.js"
   },
   "keywords": [],
   "author": "",
@@ -13,7 +13,6 @@
   "dependencies": {
     "express": "^5.2.1",
     "swagger-jsdoc": "^6.3.0",
-    "swagger-ui-express": "^5.0.1",
-    "uuid": "^14.0.0"
+    "swagger-ui-express": "^5.0.1"
   }
 }

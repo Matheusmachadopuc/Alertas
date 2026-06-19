@@ -1,17 +1,2 @@
-version: '3.8'
-
-services:
-  api-alertas:
-    build: ./DocSwagger
-    container_name: api-alertas
-    ports:
-      - "3000:3000"
-
-  mfe-auth:
-    build:
-      context: ./plus-mfe-auth
-      args:
-        - VITE_MS_AUTH_URL=http://localhost:3001
-    container_name: mfe-auth
-    ports:
-      - "4001:4001"
+include:
+  - path: ./chave-infra/docker-compose.yml

@@ -1,33 +1,50 @@
-# Engenharia_Software_II_Swagger_Alertas
+# Workspace Chave / Alertas
 
+Este workspace agrupa servicos separados. Cada pasta deve manter apenas a responsabilidade do proprio servico.
 
-## Tecnologias Utilizadas
+## Pastas
 
-- Node.js
-- Express
-- Swagger UI
-- Swagger JSDoc
-- UUID
+| Pasta | Responsabilidade |
+|---|---|
+| `chave-infra` | Orquestracao Docker, Ministack e Terraform |
+| `chave-shell` | Shell host dos microfrontends |
+| `plus-mfe-auth` | Microfrontend de autenticacao e telas de usuario |
+| `plus-ms-alerts` | Microservico backend de alertas |
+| `DocSwagger` | Documentacao Swagger legada da API de alertas |
 
----
+## Portas
 
-## Endpoints da API
+| Servico | Porta |
+|---|---|
+| `chave-shell` | `3000` |
+| `chave-ms-auth` | `3001` |
+| `plus-ms-alerts` | `3002` |
+| `plus-mfe-auth` | `4001` |
+| `mongo-alertas` | `27017` |
+| `ministack` | `4566` |
 
-| Método | Endpoint | Descrição |
-|---|---|---|
-| GET | `/alerta` | Lista todos os alertas cadastrados |
-| POST | `/alerta` | Cria um novo alerta |
-| PATCH | `/alerta/{id}` | Atualiza parcialmente um alerta existente |
-| DELETE | `/alerta/{id}` | Remove um alerta pelo ID |
+## Como subir tudo
 
-## Como usar
-- Entre na pasta:
+Use a infraestrutura como fonte de verdade:
 
-  ``` cd DocSwagger ```
-- Execute:
+```powershell
+cd chave-infra
+Copy-Item .env.example .env
+docker compose up --build
+```
 
-  ``` node documentacao.js ```
+O arquivo `docker-compose.yml` da raiz apenas inclui o Compose de `chave-infra`.
 
-- Abra a porta:
+## Autenticacao e alertas
 
-  ``` http://localhost:3000/docs ```
+O `plus-ms-alerts` nao faz login. Ele recebe o JWT emitido pelo servico de auth em:
+
+```http
+Authorization: Bearer <token>
+```
+
+Regras:
+
+- usuario autenticado pode executar `GET /alerta`;
+- apenas admin pode executar `POST /alerta`, `PATCH /alerta/{id}` e `DELETE /alerta/{id}`;
+- `JWT_SECRET` deve ser o mesmo no servico de auth e no `plus-ms-alerts`.

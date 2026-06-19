@@ -1,0 +1,17 @@
+{
+  "name": "plus-ms-alerts",
+  "version": "1.0.0",
+  "description": "Microservico de alertas",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongoose": "^8.16.0"
+  }
+}
