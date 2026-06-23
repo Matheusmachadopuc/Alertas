@@ -68,6 +68,8 @@ services:
         condition: service_started
       plus-ms-auth:
         condition: service_started
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     restart: unless-stopped
 
   plus-mfe-auth:

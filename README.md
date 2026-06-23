@@ -76,9 +76,16 @@ Regras:
 
 Depois de subir com `docker compose up --build`, teste os health checks:
 
+**PowerShell:**
 ```powershell
 Invoke-RestMethod http://localhost:3001/
 Invoke-RestMethod http://localhost:3002/health
+```
+
+**Linux / Bash:**
+```bash
+curl http://localhost:3001/
+curl http://localhost:3002/health
 ```
 
 O `plus-ms-auth` cria um usuario admin inicial automaticamente:
@@ -90,6 +97,7 @@ O `plus-ms-auth` cria um usuario admin inicial automaticamente:
 
 Faca login e guarde o access token:
 
+**PowerShell:**
 ```powershell
 $login = Invoke-RestMethod `
   -Method Post `
@@ -100,8 +108,16 @@ $login = Invoke-RestMethod `
 $token = $login.access_token
 ```
 
+**Linux / Bash:**
+```bash
+TOKEN=$(curl -s -X POST http://localhost:3001/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"admindev@admin.com","password":"Senha123"}' | grep -o '"access_token":"[^"]*' | cut -d'"' -f4)
+```
+
 Crie uma configuracao de alerta de estoque:
 
+**PowerShell:**
 ```powershell
 Invoke-RestMethod `
   -Method Post `
@@ -111,8 +127,17 @@ Invoke-RestMethod `
   -Body '{"produtoId":"uuid-do-produto","roupaId":"uuid-da-roupa","produtoNome":"Camiseta","categoria":"Roupas","tamanho":"M","cor":"Azul","quantidadeMinima":10,"ativo":true}'
 ```
 
+**Linux / Bash:**
+```bash
+curl -X POST http://localhost:3002/alerta \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"produtoId":"uuid-do-produto","roupaId":"uuid-da-roupa","produtoNome":"Camiseta","categoria":"Roupas","tamanho":"M","cor":"Azul","quantidadeMinima":10,"ativo":true}'
+```
+
 Liste as configuracoes de alertas como admin:
 
+**PowerShell:**
 ```powershell
 Invoke-RestMethod `
   -Method Get `
@@ -120,13 +145,26 @@ Invoke-RestMethod `
   -Headers @{ Authorization = "Bearer $token" }
 ```
 
+**Linux / Bash:**
+```bash
+curl http://localhost:3002/alerta \
+  -H "Authorization: Bearer $TOKEN"
+```
+
 Liste os alertas ativos que qualquer usuario autenticado pode ver:
 
+**PowerShell:**
 ```powershell
 Invoke-RestMethod `
   -Method Get `
   -Uri http://localhost:3002/alerta/ativos `
   -Headers @{ Authorization = "Bearer $token" }
+```
+
+**Linux / Bash:**
+```bash
+curl http://localhost:3002/alerta/ativos \
+  -H "Authorization: Bearer $TOKEN"
 ```
 
 A interface fica em:
@@ -145,21 +183,35 @@ O Compose antigo com Ministack/Terraform continua em `chave-infra/docker-compose
 
 O `plus-ms-alerts` monitora o MS4 Estoque a cada minuto. Configure a URL do estoque com:
 
+**PowerShell:**
 ```powershell
 $env:ESTOQUE_API_URL="http://host.docker.internal:3004"
 docker compose up -d --build
 ```
 
+**Linux / Bash:**
+```bash
+export ESTOQUE_API_URL="http://host.docker.internal:3004"
+docker compose up -d --build
+```
+
 Como o shell deste workspace usa a porta `3000`, rode o MS4 Estoque em outra porta no host:
 
-```powershell
+```bash
 docker run -p 3004:3000 plus-ms-estoque
 ```
 
 Se o `plus-ms-alerts` estiver rodando fora do Docker e o MS4 Estoque estiver na porta padrao da documentacao:
 
+**PowerShell:**
 ```powershell
 $env:ESTOQUE_API_URL="http://localhost:3000"
+npm start
+```
+
+**Linux / Bash:**
+```bash
+export ESTOQUE_API_URL="http://localhost:3000"
 npm start
 ```
 
@@ -176,6 +228,7 @@ Endpoints principais de alertas:
 
 Exemplo de configuracao de limiar:
 
+**PowerShell:**
 ```powershell
 Invoke-RestMethod `
   -Method Post `
@@ -183,6 +236,14 @@ Invoke-RestMethod `
   -Headers @{ Authorization = "Bearer $token" } `
   -ContentType "application/json" `
   -Body '{"produtoId":"uuid-do-produto","roupaId":"uuid-da-roupa","produtoNome":"Camiseta","categoria":"Roupas","tamanho":"M","cor":"Azul","quantidadeMinima":10,"ativo":true}'
+```
+
+**Linux / Bash:**
+```bash
+curl -X POST http://localhost:3002/alerta \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"produtoId":"uuid-do-produto","roupaId":"uuid-da-roupa","produtoNome":"Camiseta","categoria":"Roupas","tamanho":"M","cor":"Azul","quantidadeMinima":10,"ativo":true}'
 ```
 
 O front de alertas fica em `http://localhost:3000/alertas` pelo shell. Admin gerencia limiares; usuario comum ve apenas alertas ativos.
@@ -221,8 +282,16 @@ O ultimo resultado local ficou acima do minimo:
 
 Para rodar o estoque ficticio de testes:
 
+**PowerShell / Windows:**
 ```powershell
 cd C:\Users\Usuario\Alertas\plus-ms-estoque-fake
+npm ci
+npm start
+```
+
+**Linux / Bash:**
+```bash
+cd ~/Alertas/plus-ms-estoque-fake
 npm ci
 npm start
 ```
@@ -266,10 +335,18 @@ Servicos:
 
 Validacao rapida:
 
+**PowerShell:**
 ```powershell
 Invoke-RestMethod http://localhost:4566/_localstack/health
 Invoke-RestMethod http://localhost:3004/health
 Invoke-RestMethod http://localhost:3005/health
+```
+
+**Linux / Bash:**
+```bash
+curl http://localhost:4566/_localstack/health
+curl http://localhost:3004/health
+curl http://localhost:3005/health
 ```
 
 Para derrubar e limpar volumes:
