@@ -38,7 +38,7 @@ async function parseResponse<T>(response: Response): Promise<T> {
   const body = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    throw new Error(body.message || body.detail || "Erro ao processar requisicao");
+    throw new Error(body.message || body.detail || "Erro ao processar requisição");
   }
 
   return body as T;

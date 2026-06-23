@@ -228,7 +228,7 @@ export default function AlertsPage() {
 
     try {
       await deleteAlertConfig(id);
-      setSnackbar({ message: "Alerta excluido", severity: "success" });
+      setSnackbar({ message: "Alerta excluído", severity: "success" });
       await loadData();
     } catch (error) {
       setSnackbar({
@@ -397,7 +397,7 @@ export default function AlertsPage() {
             <Paper variant="outlined" sx={{ borderRadius: 2, overflow: "hidden" }}>
               <Toolbar sx={{ minHeight: 64 }}>
                 <Typography variant="h6" sx={{ flex: 1 }}>
-                  Configuracoes
+                  Configurações
                 </Typography>
                 <Chip label={configs.length} size="small" />
               </Toolbar>
@@ -412,7 +412,7 @@ export default function AlertsPage() {
                       <TableCell>Status</TableCell>
                       <TableCell align="right">Saldo</TableCell>
                       <TableCell align="right">Limiar</TableCell>
-                      <TableCell align="right">Acoes</TableCell>
+                      <TableCell align="right">Ações</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -507,7 +507,7 @@ export default function AlertsPage() {
               />
             </Stack>
             <TextField
-              label="Quantidade minima"
+              label="Quantidade mínima"
               type="number"
               value={formValues.quantidadeMinima}
               onChange={handleFormChange("quantidadeMinima")}
