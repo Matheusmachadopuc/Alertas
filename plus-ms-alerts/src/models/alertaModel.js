@@ -9,25 +9,73 @@ const alertaSchema = new mongoose.Schema(
             unique: true,
             index: true,
         },
-        nome: {
+        produtoId: {
             type: String,
             required: true,
             trim: true,
+            index: true,
         },
-        descricao: {
+        roupaId: {
             type: String,
-            required: true,
+            trim: true,
+            index: true,
+        },
+        produtoNome: {
+            type: String,
             trim: true,
         },
-        condicao: {
+        categoria: {
             type: String,
-            required: true,
+            trim: true,
+            index: true,
+        },
+        tamanho: {
+            type: String,
+            trim: true,
+            index: true,
+        },
+        cor: {
+            type: String,
             trim: true,
         },
-        nivel: {
-            type: String,
+        quantidadeMinima: {
+            type: Number,
             required: true,
-            enum: ['BAIXO', 'MEDIO', 'ALTO', 'CRITICO'],
+            min: 0,
+        },
+        ativo: {
+            type: Boolean,
+            default: true,
+        },
+        status: {
+            type: String,
+            enum: ['OK', 'ATIVO', 'ERRO'],
+            default: 'OK',
+            index: true,
+        },
+        ultimoSaldo: {
+            type: Number,
+            default: null,
+        },
+        mensagem: {
+            type: String,
+            trim: true,
+        },
+        ultimaVerificacaoEm: {
+            type: Date,
+            default: null,
+        },
+        notificadoEm: {
+            type: Date,
+            default: null,
+        },
+        criadoPor: {
+            type: String,
+            trim: true,
+        },
+        atualizadoPor: {
+            type: String,
+            trim: true,
         },
     },
     {

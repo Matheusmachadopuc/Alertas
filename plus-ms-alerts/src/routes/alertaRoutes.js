@@ -6,9 +6,9 @@ const router = express.Router();
 
 /**
  * @openapi
- * /alerta:
+ * /alerta/ativos:
  *   get:
- *     summary: Lista todos os alertas
+ *     summary: Lista alertas ativos de estoque
  *     responses:
  *       200:
  *         description: Sucesso
@@ -19,7 +19,11 @@ const router = express.Router();
  *               items:
  *                 $ref: '#/components/schemas/Alerta'
  */
-router.get('/alerta', authenticate, alertaController.listar);
+router.get('/alerta/ativos', authenticate, alertaController.listarAtivos);
+
+router.post('/alerta/monitorar', authenticate, requireAdmin, alertaController.monitorarAgora);
+
+router.get('/alerta', authenticate, requireAdmin, alertaController.listar);
 
 /**
  * @openapi

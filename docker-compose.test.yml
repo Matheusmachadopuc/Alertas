@@ -1,0 +1,65 @@
+services:
+  localstack:
+    image: localstack/localstack:3
+    container_name: alertas-localstack-test
+    ports:
+      - "${LOCALSTACK_PORT:-4566}:4566"
+    environment:
+      SERVICES: s3,sns,sqs,sts,cloudwatch
+      DEBUG: "0"
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      AWS_DEFAULT_REGION: us-east-1
+    volumes:
+      - ./infra/localstack/init/ready.d:/etc/localstack/init/ready.d
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://localhost:4566/_localstack/health >/dev/null"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+
+  mongo-alertas-test:
+    image: mongo:7
+    container_name: mongo-alertas-test
+    ports:
+      - "${MONGO_ALERTS_TEST_PORT:-27018}:27017"
+
+  plus-ms-estoque-fake:
+    build:
+      context: ./plus-ms-estoque-fake
+      dockerfile: Dockerfile
+    container_name: plus-ms-estoque-fake
+    environment:
+      PORT: 3000
+      FAKE_ESTOQUE_SEED: '[{"roupaId":"roupa-001","produtoId":"produto-001","tamanho":"M","cor":"Azul","saldo":0},{"roupaId":"roupa-002","produtoId":"produto-001","tamanho":"G","cor":"Azul","saldo":25}]'
+    ports:
+      - "${ESTOQUE_FAKE_PORT:-3004}:3000"
+
+  plus-ms-alerts-test:
+    build:
+      context: ./plus-ms-alerts
+      dockerfile: Dockerfile
+    container_name: plus-ms-alerts-test
+    environment:
+      NODE_ENV: test
+      PORT: 3002
+      MONGODB_URI: mongodb://mongo-alertas-test:27017/api-alertas-test
+      JWT_SECRET: dev-secret
+      JWT_ALGORITHMS: HS256
+      ADMIN_ROLES: ADMIN,ADM,admin
+      ESTOQUE_API_URL: http://plus-ms-estoque-fake:3000
+      ALERTS_MONITOR_INTERVAL_MS: 60000
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      AWS_DEFAULT_REGION: us-east-1
+      AWS_ENDPOINT_URL: http://localstack:4566
+    ports:
+      - "${MS_ALERTS_TEST_PORT:-3005}:3002"
+    depends_on:
+      localstack:
+        condition: service_healthy
+      mongo-alertas-test:
+        condition: service_started
+      plus-ms-estoque-fake:
+        condition: service_started

@@ -1,0 +1,115 @@
+services:
+  ministack:
+    image: ministackorg/ministack
+    container_name: ministack
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=s3,rds,apigateway,sts
+      - DEBUG=0
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_DEFAULT_REGION=us-east-1
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    volumes:
+      - ministack_data:/var/lib/localstack
+      - /var/run/docker.sock:/var/run/docker.sock
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:4566/_localstack/health')\""]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  infra-provisioner:
+    image: hashicorp/terraform:latest
+    container_name: infra-provisioner
+    working_dir: /infra
+    volumes:
+      - ./terraform:/infra
+    environment:
+      - TF_VAR_endpoint=http://ministack:4566
+      - TF_VAR_db_name=${DB_NAME:-chave_auth}
+      - TF_VAR_db_user=${DB_USER:-chave}
+      - TF_VAR_db_password=${DB_PASSWORD:-chave_secret}
+      - TF_VAR_ms_auth_port=${MS_AUTH_PORT:-3001}
+    entrypoint: ["/bin/sh", "-c", "rm -f terraform.tfstate terraform.tfstate.backup && terraform init && terraform apply -auto-approve"]
+    depends_on:
+      ministack:
+        condition: service_healthy
+
+  plus-ms-alerts:
+    build:
+      context: ../plus-ms-alerts
+      dockerfile: Dockerfile
+    container_name: plus-ms-alerts
+    ports:
+      - "${MS_ALERTS_PORT:-3002}:3002"
+    environment:
+      - NODE_ENV=development
+      - PORT=3002
+      - MONGODB_URI=mongodb://mongo-alertas:27017/${MONGO_ALERTS_DATABASE:-api-alertas}
+      - CORS_ORIGIN=http://localhost:${SHELL_PORT:-3000},http://localhost:${MFE_AUTH_PORT:-4001}
+      - JWT_SECRET=${JWT_SECRET:-change-me-in-production}
+      - JWT_ALGORITHMS=HS256
+      - ADMIN_ROLES=${ALERTS_ADMIN_ROLES:-ADMIN,ADM,admin}
+    depends_on:
+      mongo-alertas:
+        condition: service_started
+    restart: unless-stopped
+
+  mongo-alertas:
+    image: mongo:7
+    container_name: mongo-alertas
+    ports:
+      - "${MONGO_ALERTS_PORT:-27017}:27017"
+    volumes:
+      - mongo_alertas_data:/data/db
+    restart: unless-stopped
+
+  plus-mfe-auth:
+    build:
+      context: ../plus-mfe-auth
+      dockerfile: Dockerfile
+      args:
+        - VITE_MS_AUTH_URL=http://localhost:${MS_AUTH_PORT:-3001}
+        - VITE_MS_ALERTS_URL=http://localhost:${MS_ALERTS_PORT:-3002}
+    container_name: plus-mfe-auth
+    ports:
+      - "${MFE_AUTH_PORT:-4001}:4001"
+    environment:
+      - VITE_MS_AUTH_URL=http://localhost:${MS_AUTH_PORT:-3001}
+      - VITE_MS_ALERTS_URL=http://localhost:${MS_ALERTS_PORT:-3002}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-test}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-test}
+      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-us-east-1}
+      - AWS_ENDPOINT=http://ministack:4566
+    depends_on:
+      infra-provisioner:
+        condition: service_completed_successfully
+    restart: unless-stopped
+
+  chave-shell:
+    build:
+      context: ../chave-shell
+      dockerfile: Dockerfile
+      args:
+        - MFE_AUTH_URL=http://localhost:4001/assets/remoteEntry.js
+    container_name: chave-shell
+    ports:
+      - "${SHELL_PORT:-3000}:3000"
+    environment:
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID:-test}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY:-test}
+      - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION:-us-east-1}
+      - AWS_ENDPOINT=http://ministack:4566
+    depends_on:
+      infra-provisioner:
+        condition: service_completed_successfully
+      plus-mfe-auth:
+        condition: service_started
+    restart: unless-stopped
+
+volumes:
+  ministack_data:
+  mongo_alertas_data:

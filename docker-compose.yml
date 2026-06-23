@@ -1,2 +1,126 @@
-include:
-  - path: ./chave-infra/docker-compose.yml
+services:
+  postgres-auth:
+    image: postgres:16-alpine
+    container_name: postgres-auth
+    environment:
+      POSTGRES_DB: ${AUTH_DB_NAME:-plus_auth}
+      POSTGRES_USER: ${AUTH_DB_USER:-plus}
+      POSTGRES_PASSWORD: ${AUTH_DB_PASSWORD:-plus_secret}
+    ports:
+      - "${AUTH_DB_PORT:-15432}:5432"
+    volumes:
+      - postgres_auth_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    restart: unless-stopped
+
+  mongo-alertas:
+    image: mongo:7
+    container_name: mongo-alertas
+    ports:
+      - "${MONGO_ALERTS_PORT:-27017}:27017"
+    volumes:
+      - mongo_alertas_data:/data/db
+    restart: unless-stopped
+
+  plus-ms-auth:
+    build:
+      context: ./plus-ms-auth
+      dockerfile: Dockerfile
+    container_name: plus-ms-auth
+    environment:
+      PORT: 3001
+      DB_HOST: postgres-auth
+      DB_PORT: 5432
+      DB_USER: ${AUTH_DB_USER:-plus}
+      DB_PASSWORD: ${AUTH_DB_PASSWORD:-plus_secret}
+      DB_NAME: ${AUTH_DB_NAME:-plus_auth}
+      JWT_SECRET: ${JWT_SECRET:-dev-secret}
+    ports:
+      - "${MS_AUTH_PORT:-3001}:3001"
+    depends_on:
+      postgres-auth:
+        condition: service_healthy
+    restart: unless-stopped
+
+  plus-ms-alerts:
+    build:
+      context: ./plus-ms-alerts
+      dockerfile: Dockerfile
+    container_name: plus-ms-alerts
+    environment:
+      NODE_ENV: development
+      PORT: 3002
+      MONGODB_URI: mongodb://mongo-alertas:27017/${MONGO_ALERTS_DATABASE:-api-alertas}
+      CORS_ORIGIN: http://localhost:${SHELL_PORT:-3000},http://localhost:${MFE_AUTH_PORT:-4001},http://localhost:${MFE_ALERTS_PORT:-4002}
+      JWT_SECRET: ${JWT_SECRET:-dev-secret}
+      JWT_ALGORITHMS: HS256
+      ADMIN_ROLES: ${ALERTS_ADMIN_ROLES:-ADMIN,ADM,admin}
+      ESTOQUE_API_URL: ${ESTOQUE_API_URL:-http://host.docker.internal:3004}
+      ALERTS_MONITOR_INTERVAL_MS: ${ALERTS_MONITOR_INTERVAL_MS:-60000}
+    ports:
+      - "${MS_ALERTS_PORT:-3002}:3002"
+    depends_on:
+      mongo-alertas:
+        condition: service_started
+      plus-ms-auth:
+        condition: service_started
+    restart: unless-stopped
+
+  plus-mfe-auth:
+    build:
+      context: ./plus-mfe-auth
+      dockerfile: Dockerfile
+      args:
+        VITE_MS_AUTH_URL: http://localhost:${MS_AUTH_PORT:-3001}
+        VITE_MS_ALERTS_URL: http://localhost:${MS_ALERTS_PORT:-3002}
+    container_name: plus-mfe-auth
+    ports:
+      - "${MFE_AUTH_PORT:-4001}:4001"
+    depends_on:
+      plus-ms-auth:
+        condition: service_started
+      plus-ms-alerts:
+        condition: service_started
+    restart: unless-stopped
+
+  plus-mfe-alerts:
+    build:
+      context: ./plus-mfe-alerts
+      dockerfile: Dockerfile
+      args:
+        VITE_MS_AUTH_URL: http://localhost:${MS_AUTH_PORT:-3001}
+        VITE_MS_ALERTS_URL: http://localhost:${MS_ALERTS_PORT:-3002}
+    container_name: plus-mfe-alerts
+    ports:
+      - "${MFE_ALERTS_PORT:-4002}:4002"
+    depends_on:
+      plus-ms-auth:
+        condition: service_started
+      plus-ms-alerts:
+        condition: service_started
+    restart: unless-stopped
+
+  chave-shell:
+    build:
+      context: ./chave-shell
+      dockerfile: Dockerfile
+      args:
+        MFE_AUTH_URL: http://localhost:${MFE_AUTH_PORT:-4001}/assets/remoteEntry.js
+        MFE_ALERTS_URL: http://localhost:${MFE_ALERTS_PORT:-4002}/assets/remoteEntry.js
+    container_name: chave-shell
+    ports:
+      - "${SHELL_PORT:-3000}:3000"
+    depends_on:
+      plus-mfe-auth:
+        condition: service_started
+      plus-mfe-alerts:
+        condition: service_started
+    restart: unless-stopped
+
+volumes:
+  postgres_auth_data:
+  mongo_alertas_data:

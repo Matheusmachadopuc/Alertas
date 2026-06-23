@@ -1,0 +1,13 @@
+[
+  {
+    "timestamp": "2026-06-22T23:59:59.122Z",
+    "source": "github_copilot",
+    "git_branch": "main",
+    "git_user_name": "Matheus",
+    "call_context": {
+      "cwd": "c:\\Users\\Usuario\\Alertas"
+    },
+    "role": "user",
+    "content": "como eu rodo todas as aplicacoes"
+  }
+]
