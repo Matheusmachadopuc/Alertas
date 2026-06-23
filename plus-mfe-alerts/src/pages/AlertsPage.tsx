@@ -5,6 +5,7 @@ import {
   Button,
   Chip,
   CircularProgress,
+  Container,
   Dialog,
   DialogActions,
   DialogContent,
@@ -260,37 +261,113 @@ export default function AlertsPage() {
   }
 
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "background.default" }}>
-      <Box component="header" sx={{ bgcolor: "background.paper", borderBottom: 1, borderColor: "divider" }}>
-        <Toolbar sx={{ gap: 2, minHeight: 72, px: { xs: 2, md: 4 } }}>
-          <Inventory2Icon color="primary" />
-          <Box sx={{ flex: 1, minWidth: 0 }}>
-            <Typography variant="h5" component="h1" noWrap>
+    <Box
+      sx={{
+        minHeight: "100vh",
+        background: "linear-gradient(135deg, #7B74F5 0%, #5E56E8 100%)",
+        p: { xs: 2, md: 4 },
+      }}
+    >
+      <Container maxWidth="lg">
+        {/* Cabeçalho */}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            mb: 4,
+            color: "white",
+            flexWrap: "wrap",
+            gap: 2,
+          }}
+        >
+          <Box>
+            <Typography variant="h4" fontWeight={700}>
               Alertas de Estoque
             </Typography>
-            <Typography variant="body2" color="text.secondary" noWrap>
+            <Typography variant="body1" sx={{ opacity: 0.8 }}>
               {user?.email}
             </Typography>
           </Box>
-          <Tooltip title="Voltar">
-            <IconButton href="/" aria-label="Voltar">
-              <ArrowBackIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Atualizar">
-            <IconButton onClick={loadData} aria-label="Atualizar">
-              <RefreshIcon />
-            </IconButton>
-          </Tooltip>
-          <Tooltip title="Sair">
-            <IconButton onClick={handleLogout} aria-label="Sair">
-              <LogoutIcon />
-            </IconButton>
-          </Tooltip>
-        </Toolbar>
-      </Box>
 
-      <Box component="main" sx={{ width: "100%", maxWidth: 1320, mx: "auto", p: { xs: 2, md: 4 } }}>
+          <Box sx={{ display: "flex", gap: 1.5, flexWrap: "wrap", justifyContent: "flex-end" }}>
+            <Button
+              startIcon={<ArrowBackIcon />}
+              href="/"
+              sx={{
+                borderRadius: "16px",
+                px: 2.5,
+                py: 1.2,
+                color: "#fff",
+                background: "rgba(255,255,255,0.12)",
+                border: "1px solid rgba(255,255,255,0.18)",
+                backdropFilter: "blur(10px)",
+                textTransform: "none",
+                fontWeight: 600,
+                fontSize: "0.95rem",
+                boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
+                transition: "all .2s ease",
+                "&:hover": {
+                  background: "rgba(255,255,255,0.2)",
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 10px 28px rgba(0,0,0,0.18)",
+                },
+              }}
+            >
+              Voltar
+            </Button>
+            <Button
+              startIcon={<RefreshIcon />}
+              onClick={loadData}
+              sx={{
+                borderRadius: "16px",
+                px: 2.5,
+                py: 1.2,
+                color: "#fff",
+                background: "rgba(255,255,255,0.12)",
+                border: "1px solid rgba(255,255,255,0.18)",
+                backdropFilter: "blur(10px)",
+                textTransform: "none",
+                fontWeight: 600,
+                fontSize: "0.95rem",
+                boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
+                transition: "all .2s ease",
+                "&:hover": {
+                  background: "rgba(255,255,255,0.2)",
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 10px 28px rgba(0,0,0,0.18)",
+                },
+              }}
+            >
+              Atualizar
+            </Button>
+            <Button
+              startIcon={<LogoutIcon />}
+              onClick={handleLogout}
+              sx={{
+                borderRadius: "16px",
+                px: 2.5,
+                py: 1.2,
+                color: "#fff",
+                background: "rgba(255,255,255,0.12)",
+                border: "1px solid rgba(255,255,255,0.18)",
+                backdropFilter: "blur(10px)",
+                textTransform: "none",
+                fontWeight: 600,
+                fontSize: "0.95rem",
+                boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
+                transition: "all .2s ease",
+                "&:hover": {
+                  background: "rgba(255,255,255,0.2)",
+                  transform: "translateY(-2px)",
+                  boxShadow: "0 10px 28px rgba(0,0,0,0.18)",
+                },
+              }}
+            >
+              Sair
+            </Button>
+          </Box>
+        </Box>
         {admin && activeAlerts.length > 0 && (
           <Alert
             icon={<NotificationsActiveIcon />}
@@ -301,7 +378,7 @@ export default function AlertsPage() {
           </Alert>
         )}
 
-        <Paper variant="outlined" sx={{ mb: 3, borderRadius: 2 }}>
+        <Paper sx={{ mb: 3, borderRadius: "24px", background: "rgba(255,255,255,0.9)", backdropFilter: "blur(10px)", p: 1 }} >
           <Toolbar sx={{ gap: 2, flexWrap: "wrap", alignItems: "center", py: 1.5 }}>
             <TextField
               label="Produto"
@@ -346,7 +423,7 @@ export default function AlertsPage() {
         </Paper>
 
         <Stack spacing={3}>
-          <Paper variant="outlined" sx={{ borderRadius: 2, overflow: "hidden" }}>
+          <Paper sx={{ borderRadius: "24px", overflow: "hidden", background: "rgba(255,255,255,0.9)", backdropFilter: "blur(10px)", p: 2 }} >
             <Toolbar sx={{ minHeight: 64 }}>
               <Typography variant="h6" sx={{ flex: 1 }}>
                 Alertas ativos
@@ -394,7 +471,7 @@ export default function AlertsPage() {
           </Paper>
 
           {admin && (
-            <Paper variant="outlined" sx={{ borderRadius: 2, overflow: "hidden" }}>
+            <Paper sx={{ borderRadius: "24px", overflow: "hidden", background: "rgba(255,255,255,0.9)", backdropFilter: "blur(10px)", p: 2 }} >
               <Toolbar sx={{ minHeight: 64 }}>
                 <Typography variant="h6" sx={{ flex: 1 }}>
                   Configurações
@@ -461,7 +538,7 @@ export default function AlertsPage() {
             </Paper>
           )}
         </Stack>
-      </Box>
+      </Container>
 
       <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} fullWidth maxWidth="sm">
         <DialogTitle>{editingId ? "Editar alerta" : "Novo alerta"}</DialogTitle>
