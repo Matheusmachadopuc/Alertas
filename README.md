@@ -440,3 +440,6 @@ terraform apply
 ```
 
 Antes do `apply`, configure `backend_image`, `frontend_image`, `jwt_secret` e `auth_api_url` em `terraform.tfvars`.
+
+## Demonstração do Front-end
+Link do vídeo: https://youtu.be/2zKgu8HQ5lQ
