@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 import federation from "@originjs/vite-plugin-federation";
 
 export default defineConfig({
+  base: "/auth-ui/",
   plugins: [
     react(),
     federation({
@@ -25,9 +26,11 @@ export default defineConfig({
   server: {
     port: 4001,
     host: true,
+    allowedHosts: true,
   },
   preview: {
     port: 4001,
     host: true,
+    allowedHosts: true,
   },
 });

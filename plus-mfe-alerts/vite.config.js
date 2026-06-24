@@ -21,9 +21,11 @@ export default defineConfig({
   server: {
     port: 4002,
     host: true,
+    allowedHosts: true,
   },
   preview: {
     port: 4002,
     host: true,
+    allowedHosts: true,
   },
 });

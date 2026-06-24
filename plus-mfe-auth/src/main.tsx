@@ -10,7 +10,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <LoginPage
-        onLogin={(data: LoginResponse) => console.log("Logado:", data)}
+        onLogin={(_data: LoginResponse) => { window.location.href = "/alertas"; }}
       />
     </ThemeProvider>
   </React.StrictMode>
