@@ -420,7 +420,7 @@ export default function AlertsPage() {
                     <TableCell>Categoria</TableCell>
                     <TableCell>Grade</TableCell>
                     <TableCell align="right">Saldo</TableCell>
-                    <TableCell align="right">Limiar</TableCell>
+                    <TableCell align="right">Limite</TableCell>
                     <TableCell>Verificado</TableCell>
                   </TableRow>
                 </TableHead>
@@ -469,7 +469,7 @@ export default function AlertsPage() {
                       <TableCell>Grade</TableCell>
                       <TableCell>Status</TableCell>
                       <TableCell align="right">Saldo</TableCell>
-                      <TableCell align="right">Limiar</TableCell>
+                      <TableCell align="right">Limite</TableCell>
                       <TableCell align="right">Ações</TableCell>
                     </TableRow>
                   </TableHead>

@@ -11,7 +11,7 @@ const initial = process.env.FAKE_ESTOQUE_SEED
     ? JSON.parse(process.env.FAKE_ESTOQUE_SEED)
     : [
         { roupaId: 'roupa-001', produtoId: 'produto-001', tamanho: 'M', cor: 'Azul', saldo: 0 },
-        { roupaId: 'roupa-002', produtoId: 'produto-001', tamanho: 'G', cor: 'Azul', saldo: 25 },
+        { roupaId: 'roupa-002', produtoId: 'produto-002', tamanho: 'G', cor: 'Azul', saldo: 25 },
     ];
 
 const server = http.createServer(createApp(initial));
