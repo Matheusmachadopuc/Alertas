@@ -54,6 +54,7 @@ services:
       AWS_SECRET_ACCESS_KEY: test
       AWS_DEFAULT_REGION: us-east-1
       AWS_ENDPOINT_URL: http://localstack:4566
+      ALERTS_NOTIFICATION_TOPIC_ARN: arn:aws:sns:us-east-1:000000000000:alertas-estoque
     ports:
       - "${MS_ALERTS_TEST_PORT:-3005}:3002"
     depends_on:

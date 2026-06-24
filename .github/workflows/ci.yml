@@ -57,30 +57,21 @@ jobs:
           if-no-files-found: error
 
   frontend-builds:
-    name: frontend builds
+    name: plus-mfe-alerts build
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        package:
-          - plus-mfe-alerts
-          - plus-mfe-auth
-          - chave-shell
     defaults:
       run:
-        working-directory: ${{ matrix.package }}
+        working-directory: plus-mfe-alerts
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          submodules: recursive
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
-          cache-dependency-path: ${{ matrix.package }}/package-lock.json
+          cache-dependency-path: plus-mfe-alerts/package-lock.json
 
       - name: Install
         run: npm ci
@@ -88,31 +79,8 @@ jobs:
       - name: Build
         run: npm run build
 
-  estoque-fake:
-    name: estoque fake smoke
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: plus-ms-estoque-fake
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 24
-          cache: npm
-          cache-dependency-path: plus-ms-estoque-fake/package-lock.json
-
-      - name: Install
-        run: npm ci
-
-      - name: Smoke
-        run: npm test
-
   docker-builds:
-    name: docker build
+    name: alertas docker build
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -122,10 +90,6 @@ jobs:
             context: plus-ms-alerts
           - image: plus-mfe-alerts
             context: plus-mfe-alerts
-          - image: plus-ms-estoque-fake
-            context: plus-ms-estoque-fake
-          - image: plus-ms-auth
-            context: plus-ms-auth
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -144,8 +108,8 @@ jobs:
           cache-from: type=gha,scope=${{ matrix.image }}
           cache-to: type=gha,mode=max,scope=${{ matrix.image }}
 
-  localstack-compose:
-    name: localstack compose smoke
+  alertas-compose:
+    name: alertas compose smoke
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -160,13 +124,15 @@ jobs:
         run: |
           for i in {1..60}; do
             curl -fsS http://localhost:4566/_localstack/health >/dev/null &&
-            curl -fsS http://localhost:3004/health >/dev/null &&
             curl -fsS http://localhost:3005/health >/dev/null &&
             exit 0
             sleep 2
           done
           docker compose -f docker-compose.test.yml logs
           exit 1
+
+      - name: Check MongoDB
+        run: docker compose -f docker-compose.test.yml exec -T mongo-alertas-test mongosh --quiet --eval "db.runCommand({ ping: 1 }).ok"
 
       - name: Tear down
         if: always()

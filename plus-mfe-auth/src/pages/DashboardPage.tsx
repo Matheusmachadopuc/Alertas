@@ -148,7 +148,7 @@ export default function DashboardPage() {
             color: "white",
           }}
         >
-          <Typography variant="h4" fontWeight={700}>
+          <Typography variant="h4" sx={{ fontWeight: 700 }}>
             Plus Gestão
           </Typography>
 
@@ -233,7 +233,7 @@ export default function DashboardPage() {
               <Typography
                 variant="h5"
                 color="#4a42c8"
-                fontWeight={700}
+                sx={{ fontWeight: 700 }}
               >
                 Gerenciamento de Usuários
               </Typography>
@@ -339,7 +339,7 @@ export default function DashboardPage() {
             <Typography
               variant="h2"
               color="#4a42c8"
-              fontWeight={800}
+              sx={{ fontWeight: 800 }}
             >
               Estoque
             </Typography>

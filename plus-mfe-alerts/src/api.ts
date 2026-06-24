@@ -1,7 +1,9 @@
 import type { AlertaEstoque, AlertaFormValues, AlertasFilters, AuthUser } from "./types";
 
 const AUTH_API = import.meta.env.VITE_MS_AUTH_URL || "http://localhost:3001";
-const ALERTS_API = import.meta.env.VITE_MS_ALERTS_URL || "http://localhost:3002";
+const ALERTS_API = import.meta.env.VITE_MS_ALERTS_URL || (
+  typeof window !== "undefined" ? window.location.origin : "http://localhost:3002"
+);
 
 function getToken() {
   return localStorage.getItem("token");
@@ -103,15 +105,6 @@ export async function deleteAlertConfig(id: string) {
   if (!response.ok && response.status !== 204) {
     await parseResponse(response);
   }
-}
-
-export async function runMonitorNow() {
-  const response = await fetch(`${ALERTS_API}/alerta/monitorar`, {
-    method: "POST",
-    headers: authHeaders(),
-  });
-
-  return parseResponse<{ total?: number }>(response);
 }
 
 function toPayload(values: AlertaFormValues) {

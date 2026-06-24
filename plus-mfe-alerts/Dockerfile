@@ -4,7 +4,7 @@ COPY package.json package-lock.json* ./
 RUN npm install
 COPY . .
 ARG VITE_MS_AUTH_URL=http://localhost:3001
-ARG VITE_MS_ALERTS_URL=http://localhost:3002
+ARG VITE_MS_ALERTS_URL=
 ENV VITE_MS_AUTH_URL=$VITE_MS_AUTH_URL
 ENV VITE_MS_ALERTS_URL=$VITE_MS_ALERTS_URL
 RUN npm run build

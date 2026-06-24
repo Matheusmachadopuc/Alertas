@@ -133,8 +133,7 @@ export default function LoginPage({ onLogin }: LoginPageProps) {
         <Typography
           variant="h4"
           align="center"
-          fontWeight={700}
-          sx={{ color: "#4a42c8", mb: 0.75, fontSize: { xs: "1.6rem", sm: "1.9rem" } }}
+          sx={{ color: "#4a42c8", mb: 0.75, fontSize: { xs: "1.6rem", sm: "1.9rem" }, fontWeight: 700 }}
         >
           Entrar
         </Typography>

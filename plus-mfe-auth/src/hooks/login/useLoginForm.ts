@@ -17,10 +17,12 @@ interface UseLoginFormOptions {
 function validateEmail(v: string) {
   if (!v) return "E-mail é obrigatório.";
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return "Informe um e-mail válido.";
+  return undefined;
 }
 function validatePassword(v: string) {
   if (!v) return "Senha é obrigatória.";
   if (v.length < 6) return "Mínimo 6 caracteres.";
+  return undefined;
 }
 
 export function useLoginForm({ onSubmit }: UseLoginFormOptions) {

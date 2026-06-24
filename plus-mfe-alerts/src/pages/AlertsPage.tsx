@@ -45,7 +45,6 @@ import {
   getCurrentUser,
   listActiveAlerts,
   listAlertConfigs,
-  runMonitorNow,
   updateAlertConfig,
 } from "../api";
 import type { AlertaEstoque, AlertaFormValues, AlertasFilters, AuthUser } from "../types";
@@ -239,19 +238,6 @@ export default function AlertsPage() {
     }
   };
 
-  const handleMonitorNow = async () => {
-    try {
-      await runMonitorNow();
-      setSnackbar({ message: "Monitoramento executado", severity: "success" });
-      await loadData();
-    } catch (error) {
-      setSnackbar({
-        message: error instanceof Error ? error.message : "Erro ao monitorar estoque",
-        severity: "error",
-      });
-    }
-  };
-
   if (loading) {
     return (
       <Box sx={{ minHeight: "100vh", display: "grid", placeItems: "center", bgcolor: "background.default" }}>
@@ -282,7 +268,7 @@ export default function AlertsPage() {
           }}
         >
           <Box>
-            <Typography variant="h4" fontWeight={700}>
+            <Typography variant="h4" sx={{ fontWeight: 700 }}>
               Alertas de Estoque
             </Typography>
             <Typography variant="body1" sx={{ opacity: 0.8 }}>
@@ -410,14 +396,9 @@ export default function AlertsPage() {
             />
             <Box sx={{ flex: 1 }} />
             {admin && (
-              <>
-                <Button startIcon={<RefreshIcon />} variant="outlined" onClick={handleMonitorNow}>
-                  Monitorar
-                </Button>
-                <Button startIcon={<AddIcon />} variant="contained" onClick={openCreateDialog}>
-                  Novo alerta
-                </Button>
-              </>
+              <Button startIcon={<AddIcon />} variant="contained" onClick={openCreateDialog}>
+                Novo alerta
+              </Button>
             )}
           </Toolbar>
         </Paper>
@@ -454,7 +435,7 @@ export default function AlertsPage() {
                     activeAlerts.map((alerta) => (
                       <TableRow key={alerta.id} hover>
                         <TableCell>
-                          <Typography fontWeight={700}>{alerta.produtoNome || alerta.produtoId}</Typography>
+                          <Typography sx={{ fontWeight: 700 }}>{alerta.produtoNome || alerta.produtoId}</Typography>
                           <Typography variant="caption" color="text.secondary">{alerta.roupaId || alerta.produtoId}</Typography>
                         </TableCell>
                         <TableCell>{alerta.categoria || "-"}</TableCell>
@@ -503,7 +484,7 @@ export default function AlertsPage() {
                       configs.map((alerta) => (
                         <TableRow key={alerta.id} hover>
                           <TableCell>
-                            <Typography fontWeight={700}>{alerta.produtoNome || alerta.produtoId}</Typography>
+                            <Typography sx={{ fontWeight: 700 }}>{alerta.produtoNome || alerta.produtoId}</Typography>
                             <Typography variant="caption" color="text.secondary">{alerta.roupaId || alerta.produtoId}</Typography>
                           </TableCell>
                           <TableCell>{alerta.categoria || "-"}</TableCell>
@@ -590,7 +571,7 @@ export default function AlertsPage() {
               onChange={handleFormChange("quantidadeMinima")}
               required
               fullWidth
-              inputProps={{ min: 0 }}
+              slotProps={{ htmlInput: { min: 0 } }}
             />
             <FormControlLabel
               control={<Switch checked={formValues.ativo} onChange={handleFormChange("ativo")} />}

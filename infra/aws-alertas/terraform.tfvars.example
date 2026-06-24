@@ -1,0 +1,6 @@
+aws_region     = "us-east-1"
+project_name   = "alertas"
+backend_image  = "docker.io/SEU_USUARIO_DOCKERHUB/plus-ms-alerts:latest"
+frontend_image = "docker.io/SEU_USUARIO_DOCKERHUB/plus-mfe-alerts:latest"
+jwt_secret     = "troque-para-o-mesmo-secret-do-servico-de-auth"
+auth_api_url   = "http://localhost:3001"

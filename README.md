@@ -179,6 +179,22 @@ A interface fica em:
 
 O Compose antigo com Ministack/Terraform continua em `chave-infra/docker-compose.yml` para quando for necessario testar esse ambiente especifico.
 
+## TypeScript rigoroso na UI
+
+Os microfrontends `plus-mfe-auth` e `plus-mfe-alerts` possuem `tsconfig.json` com `strict`, `noImplicitReturns`, `noUncheckedIndexedAccess` e outras checagens rigorosas.
+
+Rode:
+
+```powershell
+cd plus-mfe-auth
+npm run typecheck
+
+cd ..\plus-mfe-alerts
+npm run typecheck
+```
+
+O `npm run build` dos dois MFEs tambem executa `tsc --noEmit` antes do build Vite.
+
 ## Alertas integrados ao MS4 Estoque
 
 O `plus-ms-alerts` monitora o MS4 Estoque a cada minuto. Configure a URL do estoque com:
@@ -319,7 +335,14 @@ Endpoints do estoque fake:
 
 ## Ambiente de teste com LocalStack
 
-Para subir um ambiente reproduzivel com LocalStack, Mongo de teste, `plus-ms-alerts-test` e estoque fake:
+Existe LocalStack neste workspace, mas ele aparece em dois lugares com objetivos diferentes:
+
+| Caminho | Quando usar |
+|---|---|
+| `docker-compose.test.yml` na raiz | stack reproduzivel para testes do servico de alertas, CI, estoque fake e notificacoes SNS/SQS |
+| `chave-infra/docker-compose.yml` | ambiente legado de infraestrutura/Ministack/Terraform |
+
+Para testar o que foi integrado ao servico de alertas, use o Compose da raiz:
 
 ```powershell
 docker compose -f docker-compose.test.yml up -d --build
@@ -332,6 +355,20 @@ Servicos:
 | LocalStack | http://localhost:4566 |
 | Estoque fake | http://localhost:3004 |
 | Alerts API teste | http://localhost:3005 |
+
+O bootstrap em `infra/localstack/init/ready.d/01-bootstrap.sh` cria:
+
+| Recurso | Nome |
+|---|---|
+| bucket S3 | `plus-alertas-test` |
+| topico SNS | `alertas-estoque` |
+| fila SQS | `alertas-estoque-queue` |
+
+Quando `ALERTS_NOTIFICATION_TOPIC_ARN` esta configurado, o `plus-ms-alerts` publica uma notificacao SNS na primeira vez que um alerta cruza o limiar de estoque. No compose de teste, o valor usado e:
+
+```text
+arn:aws:sns:us-east-1:000000000000:alertas-estoque
+```
 
 Validacao rapida:
 
@@ -361,8 +398,8 @@ Os workflows ficam em:
 
 | Workflow | Finalidade |
 |---|---|
-| `.github/workflows/ci.yml` | testes, cobertura, builds frontend, Docker build e smoke do compose LocalStack |
-| `.github/workflows/release.yml` | publicacao no Docker Hub e NPM em tags `v*.*.*` ou manual |
+| `.github/workflows/ci.yml` | testes/cobertura do backend de alertas, build do front de alertas, build Docker das imagens de alertas e smoke do compose de teste com MongoDB |
+| `.github/workflows/release.yml` | publicacao no Docker Hub das imagens de alertas em tags `v*.*.*` ou manual |
 
 Secrets esperados para release:
 
@@ -370,21 +407,36 @@ Secrets esperados para release:
 |---|---|
 | `DOCKERHUB_USERNAME` | namespace/login Docker Hub |
 | `DOCKERHUB_TOKEN` | token de publicacao Docker Hub |
-| `NPM_TOKEN` | token de publicacao NPM |
 
 Imagens Docker publicadas quando os secrets existem:
 
 ```text
 <DOCKERHUB_USERNAME>/plus-ms-alerts
 <DOCKERHUB_USERNAME>/plus-mfe-alerts
-<DOCKERHUB_USERNAME>/plus-ms-estoque-fake
-<DOCKERHUB_USERNAME>/plus-ms-auth
 ```
 
-Pacotes NPM publicados quando `NPM_TOKEN` existe:
+## Deploy AWS dos alertas
 
-```text
-plus-ms-alerts
-plus-mfe-alerts
-plus-ms-estoque-fake
+A infraestrutura AWS containerizada fica em `infra/aws-alertas`.
+
+Ela cria:
+
+| Recurso | Uso |
+|---|---|
+| ECS Fargate | roda `plus-ms-alerts`, `plus-mfe-alerts` e `mongo-alertas` |
+| EFS | persiste os dados do MongoDB em `/data/db` |
+| ALB | expoe o frontend e roteia `/alerta*` e `/health` para o backend |
+| Cloud Map | permite o backend acessar `mongo-alertas.alertas.local` |
+| SNS/SQS | notificacoes de alertas |
+| CloudWatch | logs dos containers |
+
+Para usar:
+
+```powershell
+cd infra\aws-alertas
+copy terraform.tfvars.example terraform.tfvars
+terraform init
+terraform apply
 ```
+
+Antes do `apply`, configure `backend_image`, `frontend_image`, `jwt_secret` e `auth_api_url` em `terraform.tfvars`.

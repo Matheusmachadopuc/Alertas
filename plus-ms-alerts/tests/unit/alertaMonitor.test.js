@@ -6,8 +6,13 @@ jest.mock('../../src/services/estoqueClient', () => ({
     consultarSaldo: jest.fn(),
 }));
 
+jest.mock('../../src/services/notificationService', () => ({
+    notificarAlertaEstoque: jest.fn().mockResolvedValue({ messageId: 'message-1' }),
+}));
+
 const Alerta = require('../../src/models/alertaModel');
 const { consultarSaldo } = require('../../src/services/estoqueClient');
+const { notificarAlertaEstoque } = require('../../src/services/notificationService');
 const {
     verificarAlertas,
     startMonitoramentoEstoque,
@@ -49,6 +54,7 @@ describe('alertaMonitor', () => {
         expect(item.ultimoSaldo).toBe(4);
         expect(item.mensagem).toContain('atingiu saldo 4');
         expect(item.notificadoEm).toBeInstanceOf(Date);
+        expect(notificarAlertaEstoque).toHaveBeenCalledWith(item, 4);
         expect(item.save).toHaveBeenCalledTimes(1);
     });
 
@@ -63,6 +69,7 @@ describe('alertaMonitor', () => {
         expect(item.ultimoSaldo).toBe(15);
         expect(item.mensagem).toBe('');
         expect(item.notificadoEm).toBeNull();
+        expect(notificarAlertaEstoque).not.toHaveBeenCalled();
     });
 
     it('marca ERRO quando nao consegue consultar o estoque', async () => {

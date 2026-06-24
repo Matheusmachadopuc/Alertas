@@ -79,6 +79,13 @@ web_modules/
 .env.production.local
 .env.local
 
+# Local agent/tooling artifacts
+.ai_log/
+.tools/
+**/.terraform/
+*.tfstate
+*.tfstate.*
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache

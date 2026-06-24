@@ -1,5 +1,6 @@
 const Alerta = require('../models/alertaModel');
 const { consultarSaldo } = require('./estoqueClient');
+const { notificarAlertaEstoque } = require('./notificationService');
 
 const DEFAULT_INTERVAL_MS = 60 * 1000;
 
@@ -27,6 +28,7 @@ async function verificarAlerta(alerta) {
     alerta.mensagem = atingiuLimiar ? criarMensagem(alerta, saldo) : '';
 
     if (atingiuLimiar && !alerta.notificadoEm) {
+        await notificarAlertaEstoque(alerta, saldo);
         alerta.notificadoEm = now;
     }
 
