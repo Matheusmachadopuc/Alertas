@@ -79,6 +79,15 @@ web_modules/
 .env.production.local
 .env.local
 
+# Local agent/tooling artifacts
+.ai_log/
+.tools/
+**/.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+*.auto.tfvars
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache
@@ -134,3 +143,4 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+infra/aws-alertas/task-*.json

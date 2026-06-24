@@ -123,8 +123,8 @@ function authenticate(req, res, next) {
         const payload = verifyJwt(extractToken(req));
 
         req.user = {
-            id: payload.sub || payload.id || payload.userId,
-            email: payload.email,
+            id: payload.user_id || payload.id || payload.userId || payload.sub,
+            email: payload.email || payload.sub,
             roles: getUserRoles(payload),
             raw: payload,
         };

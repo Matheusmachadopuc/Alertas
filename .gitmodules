@@ -1,9 +1,0 @@
-[submodule "chave-infra"]
-	path = chave-infra
-	url = https://github.com/Matheusmachadopuc/chave-infra.git
-[submodule "chave-shell"]
-	path = chave-shell
-	url = https://github.com/Matheusmachadopuc/chave-shell.git
-[submodule "plus-mfe-auth"]
-	path = plus-mfe-auth
-	url = https://github.com/Matheusmachadopuc/plus-mfe-auth.git

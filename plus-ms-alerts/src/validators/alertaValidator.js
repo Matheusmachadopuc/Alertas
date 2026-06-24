@@ -1,8 +1,7 @@
 const AppError = require('../errors/AppError');
 
-const CAMPOS_PERMITIDOS = ['nome', 'descricao', 'condicao', 'nivel'];
-const CAMPOS_OBRIGATORIOS = ['nome', 'descricao', 'condicao', 'nivel'];
-const NIVEIS_VALIDOS = ['BAIXO', 'MEDIO', 'ALTO', 'CRITICO'];
+const CAMPOS_TEXTO = ['produtoId', 'roupaId', 'produtoNome', 'categoria', 'tamanho', 'cor'];
+const CAMPOS_BOOLEANOS = ['ativo'];
 
 function assertObject(payload) {
     if (!payload || Array.isArray(payload) || typeof payload !== 'object') {
@@ -10,39 +9,57 @@ function assertObject(payload) {
     }
 }
 
-function sanitize(payload) {
-    return CAMPOS_PERMITIDOS.reduce((dados, campo) => {
-        if (payload[campo] !== undefined) {
-            dados[campo] = typeof payload[campo] === 'string' ? payload[campo].trim() : payload[campo];
-        }
-
-        return dados;
-    }, {});
+function sanitizeText(value) {
+    return typeof value === 'string' ? value.trim() : value;
 }
 
-function validateCommon(dados) {
-    Object.entries(dados).forEach(([campo, valor]) => {
-        if (typeof valor !== 'string' || !valor.trim()) {
-            throw new AppError(`Campo ${campo} deve ser uma string nao vazia`);
+function normalizeQuantidade(value) {
+    const quantidade = typeof value === 'string' && value.trim() !== ''
+        ? Number(value)
+        : value;
+
+    if (!Number.isFinite(quantidade) || quantidade < 0) {
+        throw new AppError('Campo quantidadeMinima deve ser um numero maior ou igual a zero');
+    }
+
+    return quantidade;
+}
+
+function sanitize(payload) {
+    const dados = {};
+
+    CAMPOS_TEXTO.forEach((campo) => {
+        if (payload[campo] !== undefined) {
+            dados[campo] = sanitizeText(payload[campo]);
         }
     });
 
-    if (dados.nivel && !NIVEIS_VALIDOS.includes(dados.nivel)) {
-        throw new AppError('Campo nivel deve ser BAIXO, MEDIO, ALTO ou CRITICO');
+    CAMPOS_BOOLEANOS.forEach((campo) => {
+        if (payload[campo] !== undefined) {
+            dados[campo] = Boolean(payload[campo]);
+        }
+    });
+
+    if (payload.quantidadeMinima !== undefined) {
+        dados.quantidadeMinima = normalizeQuantidade(payload.quantidadeMinima);
     }
+
+    return dados;
 }
 
 function validateCreate(payload) {
     assertObject(payload);
 
     const dados = sanitize(payload);
-    const campoAusente = CAMPOS_OBRIGATORIOS.find((campo) => !dados[campo]);
 
-    if (campoAusente) {
-        throw new AppError(`Campo obrigatorio ausente: ${campoAusente}`);
+    if (!dados.produtoId) {
+        throw new AppError('Campo obrigatorio ausente: produtoId');
     }
 
-    validateCommon(dados);
+    if (dados.quantidadeMinima === undefined) {
+        throw new AppError('Campo obrigatorio ausente: quantidadeMinima');
+    }
+
     return dados;
 }
 
@@ -55,7 +72,10 @@ function validatePatch(payload) {
         throw new AppError('Informe ao menos um campo valido para atualizar');
     }
 
-    validateCommon(dados);
+    if (dados.produtoId !== undefined && !dados.produtoId) {
+        throw new AppError('Campo produtoId nao pode ser vazio');
+    }
+
     return dados;
 }
 

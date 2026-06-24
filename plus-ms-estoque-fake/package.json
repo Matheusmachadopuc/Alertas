@@ -1,0 +1,18 @@
+{
+  "name": "plus-ms-estoque-fake",
+  "version": "1.0.0",
+  "description": "Servico fake do MS4 Estoque para testes locais e CI",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node src/server.js --check"
+  },
+  "keywords": [
+    "estoque",
+    "fake",
+    "test"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

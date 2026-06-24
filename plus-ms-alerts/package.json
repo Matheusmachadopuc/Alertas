@@ -4,14 +4,26 @@
   "description": "Microservico de alertas",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "test": "jest --runInBand",
+    "test:unit": "jest --runInBand tests/unit",
+    "test:integration": "jest --runInBand tests/integration",
+    "test:contract": "jest --runInBand tests/contract",
+    "test:functional": "jest --runInBand tests/functional",
+    "coverage": "jest --runInBand --coverage",
+    "ci": "npm test -- --coverage"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@aws-sdk/client-sns": "^3.1075.0",
     "express": "^5.2.1",
     "mongoose": "^8.16.0"
+  },
+  "devDependencies": {
+    "jest": "^30.4.2",
+    "supertest": "^7.2.2"
   }
 }
