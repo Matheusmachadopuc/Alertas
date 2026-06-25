@@ -132,7 +132,8 @@ jobs:
           exit 1
 
       - name: Check MongoDB
-        run: docker compose -f docker-compose.test.yml exec -T mongo-alertas-test mongosh --quiet --eval "db.runCommand({ ping: 1 }).ok"
+        run: | 
+          docker compose -f docker-compose.test.yml exec -T mongo-alertas-test mongosh --quiet --eval "db.runCommand({ ping: 1 }).ok"
 
       - name: Tear down
         if: always()
