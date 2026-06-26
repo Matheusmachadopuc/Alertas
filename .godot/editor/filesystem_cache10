@@ -1,0 +1,96 @@
+63f7b34db8d8cdea90c76aacccf841ec
+::res://::1782506340
+Global.gd::GDScript::5340669369961567710::1782506334::0::1::::<>Node<><>0<>0<><>::
+README.txt::TextFile::-1::1782506334::0::1::::<><><>0<>0<><>::
+::res://fases/::1782506334
+fase1.tscn::PackedScene::6034521052175702427::1782506334::0::1::::<><><>0<>0<><>::uid://ddt46ug00k5j4::::res://fases/fase_1.gd<>uid://d2bh0ixck0sbm::::res://personagens/player/player.tscn<>uid://bareqk4qq1y5f::::res://personagens/inimigos/caminhoInimigo.gd<>uid://ndas58jurts0::::res://personagens/inimigos/inimigo.tscn<>uid://bddgodd26arf3::::res://fases/portaFase.tscn<>uid://dp1itqy4wodac::::res://fases/porta_fase.gd<>uid://cnhr7ybb7xq5y::::res://materials/concrete-wall_JROB238L72.jpg<>uid://csnplcqtt14dl::::res://materials/BUCKSKIN-Limited-Stock.jpg
+FaseTeste2.tscn::PackedScene::2447808940979645883::1782506334::0::1::::<><><>0<>0<><>::uid://bg2eemvugoi6u::::res://imagensSprites/Tech Dungeon Roguelite - Asset Pack (DEMO)/tileset x1.png<>uid://hr1mbxvdh8l2::::res://imagensSprites/tiles_laboratory_LandOfPixels/16px/tilesStuff.png<>uid://bbxm4ucad5sw5::::res://imagensSprites/x-mark-16.png<>uid://d2bh0ixck0sbm::::res://personagens/player/player.tscn
+FaseTeste.tscn::PackedScene::6085094938269241540::1782506334::0::1::::<><><>0<>0<><>::uid://bg2eemvugoi6u::::res://imagensSprites/Tech Dungeon Roguelite - Asset Pack (DEMO)/tileset x1.png<>uid://bq5k2jh1mmfr7::::res://imagensSprites/tiles_laboratory_LandOfPixels/16px/tilesWalls.png<>uid://bbxm4ucad5sw5::::res://imagensSprites/x-mark-16.png<>uid://qpbtf1uk1to1::::res://imagensSprites/tiles_laboratory_LandOfPixels/32px/tilesWalls.png<>uid://d2bh0ixck0sbm::::res://personagens/player/player.tscn<>uid://bqrg378rvg7tc::::res://imagensSprites/tiles_laboratory_LandOfPixels/32px/tilesStuff.png<>uid://bareqk4qq1y5f::::res://personagens/inimigos/caminhoInimigo.gd<>uid://ndas58jurts0::::res://personagens/inimigos/inimigo.tscn
+fase_1.gd::GDScript::7410868972627366727::1782506334::0::1::::<>Node2D<><>0<>0<><>::
+portaFase.tscn::PackedScene::2603569814413311258::1782506334::0::1::::<><><>0<>0<><>::uid://bnjwxudwtuue8::::res://imagensSprites/icon.svg
+porta_fase.gd::GDScript::8266289072078156542::1782506334::0::1::::<>StaticBody2D<><>0<>0<><>::
+::res://gameHubEEtc/::1782506334
+Trollface.png::CompressedTexture2D::3022912030132847162::1782506334::1782506334::1::::<><><>0<>0<>93cf7f52f3aeda0b042a776ef85d0958<>res://.godot/imported/Trollface.png-aa4c0cd651e129a2e82d74c81f60ee78.ctex::
+::res://gameHubEEtc/Menu/::1782506334
+main_menu.gd::GDScript::9068461749976952921::1782506334::0::1::::<>Control<><>0<>0<><>::
+main_menu.gdshader::Shader::7014408129419034218::1782506334::0::1::::<><><>0<>0<><>::
+main_menu.tscn::PackedScene::1711402085882099673::1782506334::0::1::::<><><>0<>0<><>::uid://d2g3iftawhgon::::res://gameHubEEtc/Menu/main_menu.gd<>uid://nqmv15iesfu2::::res://gameHubEEtc/Menu/parallax_background.gd<>uid://chuik2kfgva52::::res://imagensSprites/backgroundCyberpunk/back.png<>uid://3fquj2sfbvax::::res://imagensSprites/backgroundCyberpunk/buildings.png<>uid://bwjk04l3xth6x::::res://imagensSprites/backgroundCyberpunk/front.png<>uid://c663jokdsbvao::::res://gameHubEEtc/Menu/main_menu.gdshader<>uid://c50vdvfk8cpsc::::res://imagensSprites/LogoJogo/Gemini_Generated_Image_311myy311myy311m-removebg-preview.png
+parallax_background.gd::GDScript::946252529265356711::1782506334::0::1::::<>ParallaxBackground<><>0<>0<><>::
+sprite_player-removebg-preview.png::CompressedTexture2D::1969186502558627792::1782506334::1782506334::1::::<><><>0<>0<>7fcc2e88095fb05d2f74446976c08876<>res://.godot/imported/sprite_player-removebg-preview.png-8b1c2e9ba958c34742ddd73073f26159.ctex::
+vitoria.tscn::PackedScene::8439462224470648706::1782506334::0::1::::<><><>0<>0<><>::
+::res://imagensSprites/::1782506334
+ChatGPT Image 5 de jun. de 2026, 10_11_02.png::CompressedTexture2D::8827164273769770487::1782506334::1782506334::1::::<><><>0<>0<>13dde34735405aab11cf2e542ed8c623<>res://.godot/imported/ChatGPT Image 5 de jun. de 2026, 10_11_02.png-9054a8e11dee5a4a3f8d8c9fa6a0fd75.ctex::
+icon.svg::CompressedTexture2D::3318832954001930057::1782506334::1782506334::1::::<><><>0<>0<>e120372c4a7c7f63ba84fe75672ff985<>res://.godot/imported/icon.svg-aea1f217efe065b9f0d05675a9cc31f5.ctex::
+x-mark-16.png::CompressedTexture2D::2504871661172769266::1782506334::1782506334::1::::<><><>0<>0<>cd7b1244c3e852e64a61ab61ebf6d00a<>res://.godot/imported/x-mark-16.png-36cc4074f893231ec0c63b8ad59c4fd3.ctex::
+::res://imagensSprites/backgroundCyberpunk/::1782506334
+back.png::CompressedTexture2D::5305955855629324607::1782506334::1782506334::1::::<><><>0<>0<>8df589426147afabc130ba4971d7601a<>res://.godot/imported/back.png-55798a26dfb8305ab6dbb090e068b2b0.ctex::
+buildings.png::CompressedTexture2D::1976617213642020419::1782506334::1782506334::1::::<><><>0<>0<>4ac55a90769e83e2b02615621176b442<>res://.godot/imported/buildings.png-a45eaec873459a8dc11b134c51c5194c.ctex::
+front.png::CompressedTexture2D::3949807999765324825::1782506334::1782506334::1::::<><><>0<>0<>26f4eb0a013e7a101fe984380bcc3796<>res://.godot/imported/front.png-245ed361e5d24ab5b5b864b300559ca6.ctex::
+::res://imagensSprites/LogoJogo/::1782506334
+Gemini_Generated_Image_311myy311myy311m-removebg-preview.png::CompressedTexture2D::6931397645821403458::1782506334::1782506334::1::::<><><>0<>0<>d1746d5cfaf709be270fe707bad0cee2<>res://.godot/imported/Gemini_Generated_Image_311myy311myy311m-removebg-preview.png-ae866591376971ba5095043e18484359.ctex::
+Gemini_Generated_Image_311myy311myy311m.png::CompressedTexture2D::8088464985766949053::1782506334::1782506334::1::::<><><>0<>0<>5f8bc58057f1422954c414afc62599b9<>res://.godot/imported/Gemini_Generated_Image_311myy311myy311m.png-07125e436885f99a0ff1a6a8c0b944a8.ctex::
+::res://imagensSprites/Tech Dungeon Roguelite - Asset Pack (DEMO)/::1782506334
+Read Me.txt::TextFile::-1::1782506334::0::1::::<><><>0<>0<><>::
+tileset x1.png::CompressedTexture2D::2863542619665976290::1782506334::1782506334::1::::<><><>0<>0<>4383d08474bb02ef55276c1d3c8e9bb6<>res://.godot/imported/tileset x1.png-a2598934fa51b4bf9ae2fc1bbc7a7a43.ctex::
+tileset x2.png::CompressedTexture2D::7870234082800877528::1782506334::1782506334::1::::<><><>0<>0<>ea03c0c673ed6359bf86bbdb5ef40873<>res://.godot/imported/tileset x2.png-19af1fd634a589dd6415475c00ac9849.ctex::
+tileset x3.png::CompressedTexture2D::4973892447556943102::1782506334::1782506334::1::::<><><>0<>0<>e465446a14c67b75d8e97954f5178ca9<>res://.godot/imported/tileset x3.png-a011e4321af415feadc1039348bdf6e1.ctex::
+::res://imagensSprites/Tech Dungeon Roguelite - Asset Pack (DEMO)/Players/::1782506334
+8x13 Cells.txt::TextFile::-1::1782506334::0::1::::<><><>0<>0<><>::
+players blue x1.png::CompressedTexture2D::5807032247785891634::1782506334::1782506334::1::::<><><>0<>0<>343726a4c445ce88310df6815c07ae19<>res://.godot/imported/players blue x1.png-0f84637904ed62d602e91426ca982d4a.ctex::
+players blue x2.png::CompressedTexture2D::7609202962828083948::1782506334::1782506334::1::::<><><>0<>0<>3d6ea708ebc3285efc9cc079c4ee90a1<>res://.godot/imported/players blue x2.png-be943c4c5a645b07891cf989b65285a3.ctex::
+players blue x3.png::CompressedTexture2D::7762278004458055411::1782506334::1782506334::1::::<><><>0<>0<>cc6ba87356fe9618ed7914b1d4c73235<>res://.godot/imported/players blue x3.png-fa9a415671cdbb0e7252be876f4a3861.ctex::
+::res://imagensSprites/Tech Dungeon Roguelite - Asset Pack (DEMO)/Players/No Outlines/::1782506334
+players blue x1.png::CompressedTexture2D::5627940948403264241::1782506334::1782506334::1::::<><><>0<>0<>03cb3502dd2a0717201cc2aebea8e828<>res://.godot/imported/players blue x1.png-ab14219a57944ab248f8025ea1e232e9.ctex::
+players blue x2.png::CompressedTexture2D::4631458017481662186::1782506334::1782506334::1::::<><><>0<>0<>1a7ab06b63707f2aeb5b11c4f6f3d5c4<>res://.godot/imported/players blue x2.png-b21d1f6765a093ff867d27df6d701790.ctex::
+players blue x3.png::CompressedTexture2D::592789484863080710::1782506334::1782506334::1::::<><><>0<>0<>c92e91f95c5a36c4cbe158b4cc00bca0<>res://.godot/imported/players blue x3.png-d5af2e5e6b7a67faa5cebd8d2a8675b9.ctex::
+::res://imagensSprites/Tech Dungeon Roguelite - Asset Pack (DEMO)/UI/::1782506334
+20x11 Cells.txt::TextFile::-1::1782506334::0::1::::<><><>0<>0<><>::
+ui x1.png::CompressedTexture2D::7971813030115511325::1782506334::1782506334::1::::<><><>0<>0<>292dfe59f4e47d8fce2f2860de4eb272<>res://.godot/imported/ui x1.png-c98fc9af0c5b9f2c8a251850b13af127.ctex::
+ui x2.png::CompressedTexture2D::6785946461428843564::1782506334::1782506334::1::::<><><>0<>0<>e80c6704e75ec8f3276cea490d6af6c2<>res://.godot/imported/ui x2.png-a0dffaffd1af4b286e07531e4a0b2d25.ctex::
+ui x3.png::CompressedTexture2D::1885432105348490653::1782506334::1782506334::1::::<><><>0<>0<>37a9b7713d9b64f0c4259e87a04d7799<>res://.godot/imported/ui x3.png-6088889261395f4f7e212228f0fddfd2.ctex::
+::res://imagensSprites/tiles_laboratory_LandOfPixels/::1782506334
+LICENSE.txt::TextFile::-1::1782506334::0::1::::<><><>0<>0<><>::
+README.txt::TextFile::-1::1782506334::0::1::::<><><>0<>0<><>::
+::res://imagensSprites/tiles_laboratory_LandOfPixels/16px/::1782506334
+spriteSheet_fireEffect03_21x26.png::CompressedTexture2D::5719363428779587402::1782506334::1782506334::1::::<><><>0<>0<>23347573755305c7603a83276177bd1b<>res://.godot/imported/spriteSheet_fireEffect03_21x26.png-05586617e6d128d3dbc79a144969b0af.ctex::
+spriteSheet_lightBulbSmallAnimation_16x16.png::CompressedTexture2D::1490435780438417672::1782506334::1782506334::1::::<><><>0<>0<>77fdbe064144914c344a2682554eeb18<>res://.godot/imported/spriteSheet_lightBulbSmallAnimation_16x16.png-00f14000cc91e56d8db984f4ea606d53.ctex::
+spriteSheet_lightingBulb02_68x73.png::CompressedTexture2D::462527152138603865::1782506334::1782506334::1::::<><><>0<>0<>e6617ddf1352c0013dffc4b9a7b8d8a7<>res://.godot/imported/spriteSheet_lightingBulb02_68x73.png-ada3c0a184312ec8265a48d48fbe26ca.ctex::
+spriteSheet_tiledLiquids_16x16.png::CompressedTexture2D::1170364525282154157::1782506334::1782506334::1::::<><><>0<>0<>637538e3fd05cada8f4a17b2e1f1e1ab<>res://.godot/imported/spriteSheet_tiledLiquids_16x16.png-ef9f98ea25770dee8268af24e1ab4364.ctex::
+tilesFloor.png::CompressedTexture2D::5312408771104272655::1782506334::1782506334::1::::<><><>0<>0<>dfdbbc5b59d3dd748f266b5e2ec4ea27<>res://.godot/imported/tilesFloor.png-85613c5003e808b72ea0614022d1c8d6.ctex::
+tilesStuff.png::CompressedTexture2D::528016487636347997::1782506334::1782506334::1::::<><><>0<>0<>6b8ad3fe1521e09ff111cae614f915a3<>res://.godot/imported/tilesStuff.png-5939f32d134cce66670ca04d04d4c11d.ctex::
+tilesWalls.png::CompressedTexture2D::3572029385608126614::1782506334::1782506334::1::::<><><>0<>0<>604240d8f92b0c10d950bb718c58f8a1<>res://.godot/imported/tilesWalls.png-e5fdaba38de90fafbe910a523964ec82.ctex::
+::res://imagensSprites/tiles_laboratory_LandOfPixels/32px/::1782506334
+spriteSheet_fireEffect03_42x52.png::CompressedTexture2D::7844520443578789244::1782506334::1782506334::1::::<><><>0<>0<>5df5831c2a4378c73df57c690ecffc6e<>res://.godot/imported/spriteSheet_fireEffect03_42x52.png-a71befc905ee4a511e3b6d5ffcdac1f1.ctex::
+spriteSheet_lightBulbSmallAnimation_32x32.png::CompressedTexture2D::8403252744210653198::1782506334::1782506334::1::::<><><>0<>0<>c0e57e8c896ae34b1d828c2d79695cdc<>res://.godot/imported/spriteSheet_lightBulbSmallAnimation_32x32.png-3a09a8fdbfe9a5a101f934296362a45d.ctex::
+spriteSheet_lightingBulb02_136x146.png::CompressedTexture2D::8611566277101948835::1782506334::1782506334::1::::<><><>0<>0<>e4301c0b2e4b780946f23457c72d4758<>res://.godot/imported/spriteSheet_lightingBulb02_136x146.png-f39ab854d9c76338b567326ef35a19e5.ctex::
+spriteSheet_tiledLiquids_32x32.png::CompressedTexture2D::3932276571591177799::1782506334::1782506334::1::::<><><>0<>0<>6fce3739ca09450d3bb476255b88556c<>res://.godot/imported/spriteSheet_tiledLiquids_32x32.png-753e61b666342f87533ff60f898a34cf.ctex::
+tilesFloor32.png::CompressedTexture2D::783963958573495273::1782506334::1782506334::1::::<><><>0<>0<>2be11f46bf33cc8e5dd7090ff0152ef5<>res://.godot/imported/tilesFloor32.png-ff0adfe9ebb8e59f8bd9f70c3ffa6a40.ctex::
+tilesStuff.png::CompressedTexture2D::3544952640433060328::1782506334::1782506334::1::::<><><>0<>0<>c050027edb60101e161bc762735485ac<>res://.godot/imported/tilesStuff.png-0870926b6a7422aa38572a1a21af346b.ctex::
+tilesWalls.png::CompressedTexture2D::1154082115301156018::1782506334::1782506334::1::::<><><>0<>0<>31b66aeb896cb15e4da3cae5f0d09ee1<>res://.godot/imported/tilesWalls.png-1884e8acbc57240531ef1cdb7de21adf.ctex::
+::res://imagensSprites/tiles_laboratory_LandOfPixels/48px/::1782506334
+spriteSheet_fireEffect03_63x78.png::CompressedTexture2D::8117319288010288536::1782506334::1782506334::1::::<><><>0<>0<>379afe4cd3cb1d753b78f453875eff9d<>res://.godot/imported/spriteSheet_fireEffect03_63x78.png-8d66da0dd937ffeec0f4677fe7e70046.ctex::
+spriteSheet_lightBulbSmallAnimation_48x48.png::CompressedTexture2D::951116547791162633::1782506334::1782506334::1::::<><><>0<>0<>0a1908cc7fe3a3f2bd74cbae0f3236d5<>res://.godot/imported/spriteSheet_lightBulbSmallAnimation_48x48.png-2776b58223fe8497f670ef67c10a6638.ctex::
+spriteSheet_lightingBulb02_204x219.png::CompressedTexture2D::7297467254738339060::1782506334::1782506334::1::::<><><>0<>0<>736836c4a28fd670460ed1b7b247dd29<>res://.godot/imported/spriteSheet_lightingBulb02_204x219.png-7db903c7859ce013e110f9e13132c758.ctex::
+spriteSheet_tiledLiquids_48x48.png::CompressedTexture2D::4229885625307838057::1782506334::1782506334::1::::<><><>0<>0<>5da093cf5bbb3b4b28af5d6cb234b192<>res://.godot/imported/spriteSheet_tiledLiquids_48x48.png-884b6334c7874995b171f8e88ee4a145.ctex::
+tilesFloor.png::CompressedTexture2D::8742910792103158288::1782506334::1782506334::1::::<><><>0<>0<>59ade370b109b514321089dcc932f185<>res://.godot/imported/tilesFloor.png-036e14ac234ffd08891bcf37dbcbed43.ctex::
+tilesStuff.png::CompressedTexture2D::8645952482408721937::1782506334::1782506334::1::::<><><>0<>0<>571549fa8b0d83ace10a8679d8b7f36b<>res://.godot/imported/tilesStuff.png-59148805b5cc58ba498f7b58ce155b48.ctex::
+tilesWalls.png::CompressedTexture2D::99703418236912518::1782506334::1782506334::1::::<><><>0<>0<>07c8abc8662282c15547b2be26c896e9<>res://.godot/imported/tilesWalls.png-65f90510abb574f4be86113c5bda9d95.ctex::
+::res://imagensSprites/tiles_laboratory_LandOfPixels/examples/::1782506334
+doorsA.png::CompressedTexture2D::4770740590160708081::1782506334::1782506334::1::::<><><>0<>0<>169df1fdbd2e6cfd9e0d7e053c6bb32f<>res://.godot/imported/doorsA.png-e52b2bf3aa4003912789a8f70aa6c3cd.ctex::
+doorsB.png::CompressedTexture2D::7796911074485324966::1782506334::1782506334::1::::<><><>0<>0<>24a56ec325042e5c782e651968ad1122<>res://.godot/imported/doorsB.png-246d248aba5deae7458b9f79d65b261d.ctex::
+LabFitting01.png::CompressedTexture2D::5552149081315157275::1782506334::1782506334::1::::<><><>0<>0<>818ea56990874a3e0f0f837adf884703<>res://.godot/imported/LabFitting01.png-1da2ed2618b1ede56971b4536d09308d.ctex::
+::res://materials/::1782506334
+BUCKSKIN-Limited-Stock.jpg::CompressedTexture2D::6064007992951302853::1782506334::1782506334::1::::<><><>0<>0<>0d0bfa5759244336db8ad8c180f8fc07<>res://.godot/imported/BUCKSKIN-Limited-Stock.jpg-1311c78737c0f3aa5459e44d2c774e47.ctex::
+concrete-wall_JROB238L72.jpg::CompressedTexture2D::5700837575435357676::1782506334::1782506334::1::::<><><>0<>0<>c3b6abcc41990b4fdce7a8373d334b44<>res://.godot/imported/concrete-wall_JROB238L72.jpg-4452a82bb36e68a48b56d4f4621493f6.ctex::
+::res://personagens/::1782506334
+Trollface.png::CompressedTexture2D::8657620665206767366::1782506334::1782506334::1::::<><><>0<>0<>931259895c694d4f0a426e44a206f84b<>res://.godot/imported/Trollface.png-3363d0c60a4a18ba2d69cba7b4c5a1df.ctex::
+::res://personagens/inimigos/::1782506334
+caminhoInimigo.gd::GDScript::2421787116967889777::1782506334::0::1::::<>PathFollow2D<><>0<>0<><>::
+inimigo.gd::GDScript::3382183895662006027::1782506334::0::1::::<>StaticBody2D<><>0<>0<><>::
+inimigo.tscn::PackedScene::918681871962274801::1782506334::0::1::::<><><>0<>0<><>::uid://bogmcsi2egixn::::res://personagens/inimigos/inimigo.gd<>uid://bnjwxudwtuue8::::res://imagensSprites/icon.svg<>uid://dx07dupiis6bj::::res://imagensSprites/ChatGPT Image 5 de jun. de 2026, 10_11_02.png
+::res://personagens/player/::1782506334
+player.gd::GDScript::8869081128251491649::1782506334::0::1::::<>CharacterBody2D<><>0<>0<><>::
+player.tscn::PackedScene::9056895326679765342::1782506334::0::1::::<><><>0<>0<><>::uid://dymip81lsrgmj::::res://personagens/player/player.gd<>uid://do4l1pw34r4i8::::res://plus/bullet.tscn<>uid://3b5hjm40mssu::::res://gameHubEEtc/Menu/sprite_player-removebg-preview.png<>uid://dx07dupiis6bj::::res://imagensSprites/ChatGPT Image 5 de jun. de 2026, 10_11_02.png
+::res://plus/::1782506334
+bullet.gd::GDScript::6471146318646810737::1782506334::0::1::::<>Area2D<><>0<>0<><>::
+bullet.tscn::PackedScene::8202487957589045373::1782506334::0::1::::<><><>0<>0<><>::uid://bnjwxudwtuue8::::res://imagensSprites/icon.svg<>uid://cygw3mud5o63n::::res://plus/bullet.gd

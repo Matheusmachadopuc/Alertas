@@ -1,0 +1,12 @@
+PointLight2D
+CanvasModulate
+Sprite2D
+RichTextLabel
+ParallaxLayer
+ParallaxBackground
+TileMapLayer
+CollisionShape2D
+Node2D
+GraphFrame
+Label
+StaticBody2D

@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://d2bh0ixck0sbm"]
+
+[ext_resource type="Script" uid="uid://dymip81lsrgmj" path="res://personagens/player/player.gd" id="1_onrkg"]
+[ext_resource type="PackedScene" uid="uid://do4l1pw34r4i8" path="res://plus/bullet.tscn" id="2_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://3b5hjm40mssu" path="res://gameHubEEtc/Menu/sprite_player-removebg-preview.png" id="3_meo24"]
+[ext_resource type="Texture2D" uid="uid://dx07dupiis6bj" path="res://imagensSprites/ChatGPT Image 5 de jun. de 2026, 10_11_02.png" id="4_m7xsi"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7xsi"]
+radius = 88.0
+height = 538.0
+
+[node name="Player" type="CharacterBody2D" unique_id=1740235856 groups=["player"]]
+collision_layer = 253
+collision_mask = 253
+script = ExtResource("1_onrkg")
+bullet_scene = ExtResource("2_i3pqv")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1689915104 groups=["player"]]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_meo24")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=988465226 groups=["player"]]
+rotation = 1.5707964
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CapsuleShape2D_m7xsi")
+
+[node name="origemTiro" type="Marker2D" parent="." unique_id=652004140 groups=["player"]]
+position = Vector2(92, 0)
+
+[node name="RayCast2D" type="RayCast2D" parent="origemTiro" unique_id=1955988984 groups=["player"]]
+target_position = Vector2(2000, 0)
+
+[node name="Line2D" type="Line2D" parent="origemTiro/RayCast2D" unique_id=1600910071 groups=["player"]]
+width = 2.0
+default_color = Color(1, 0, 0, 1)
+
+[node name="PointLight2D" type="PointLight2D" parent="origemTiro/RayCast2D" unique_id=1507292907 groups=["player"]]
+position = Vector2(460.66028, -2.0789805e-06)
+rotation = 4.712389
+scale = Vector2(1, 0.69863486)
+color = Color(1, 0, 0, 0.58431375)
+texture = ExtResource("4_m7xsi")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1810171479 groups=["player"]]
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1973322256 groups=["player"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1384584413 groups=["player"]]
+position = Vector2(154, 117)
+polygon = PackedVector2Array(-3, -114, 781, 58, 781, -294)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

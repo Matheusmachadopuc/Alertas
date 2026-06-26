@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://ndas58jurts0"]
+
+[ext_resource type="Script" uid="uid://bogmcsi2egixn" path="res://personagens/inimigos/inimigo.gd" id="1_0b8xr"]
+[ext_resource type="Texture2D" uid="uid://bnjwxudwtuue8" path="res://imagensSprites/icon.svg" id="2_g45jm"]
+[ext_resource type="Texture2D" uid="uid://dx07dupiis6bj" path="res://imagensSprites/ChatGPT Image 5 de jun. de 2026, 10_11_02.png" id="3_jniwt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tlwt5"]
+size = Vector2(115, 121)
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_aqk2v"]
+points = PackedVector2Array(-400.32434, 32.072243, -307, 96, -288.04218, 23.49607)
+
+[node name="inimigo" type="StaticBody2D" unique_id=478533006 groups=["enemy"]]
+rotation = -1.5695587
+collision_layer = 255
+collision_mask = 255
+script = ExtResource("1_0b8xr")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=4465614 groups=["enemy"]]
+modulate = Color(0.08, 0.08, 0.037600003, 1)
+texture = ExtResource("2_g45jm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1803201934 groups=["enemy"]]
+shape = SubResource("RectangleShape2D_tlwt5")
+metadata/_edit_group_ = true
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1631900750 groups=["enemy"]]
+position = Vector2(137, 616.00006)
+rotation = 1.2270072
+scale = Vector2(1.097973, 1.0519481)
+color = Color(0.8352941, 0.9372549, 0, 0)
+polygon = PackedVector2Array(-521, -58, -307, 96, -267, -55)
+uv = PackedVector2Array(-521, -58, -436, -6, -425, -66)
+
+[node name="VisionArea" type="Area2D" parent="." unique_id=1992927554 groups=["enemy"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="VisionArea" unique_id=1618473893 groups=["enemy"]]
+position = Vector2(-445, 356)
+rotation = 3.2835264
+scale = Vector2(1.3010715, 3.6119468)
+shape = SubResource("ConvexPolygonShape2D_aqk2v")
+debug_color = Color(0, 0.6, 0.69803923, 0.6745098)
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=667026383 groups=["enemy"]]
+z_index = 1
+position = Vector2(-5.7623787, 192.00728)
+scale = Vector2(0.4655814, 0.22734831)
+color = Color(0.4700758, 0.47007585, 0.47007567, 0.57254905)
+energy = 1.2
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.69411767)
+texture = ExtResource("3_jniwt")
+offset = Vector2(20, 0)
+
+[connection signal="body_entered" from="VisionArea" to="." method="_on_vision_area_body_entered"]

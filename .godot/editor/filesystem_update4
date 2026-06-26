@@ -1,0 +1,6 @@
+res://fases/FaseTeste.tscn
+res://gameHubEEtc/Menu/main_menu.gdshader
+res://personagens/player/player.gd
+res://personagens/player/player.tscn
+res://plus/bullet.gd
+res://plus/bullet.tscn
